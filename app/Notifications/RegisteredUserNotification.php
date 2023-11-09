@@ -39,7 +39,6 @@ class RegisteredUserNotification extends Notification
         return (new MailMessage)
                     ->line('The introduction to the notification.')
                     ->line('Thank you for using our application!')
-                    ->line('Your email: ' . $this->user->email)
                     ;
     }
 

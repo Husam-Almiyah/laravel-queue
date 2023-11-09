@@ -44,7 +44,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Notification::send($user, new RegisteredUserNotification($user));
+        foreach (range(1, 100) as $send) {
+            Notification::send($user, new RegisteredUserNotification($user));
+        }
 
         event(new Registered($user));
 
