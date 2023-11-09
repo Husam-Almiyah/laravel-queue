@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendRegisteredUserNotification;
 use App\Models\User;
 use App\Notifications\RegisteredUserNotification;
 use App\Providers\RouteServiceProvider;
@@ -44,7 +45,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        SendRegisteredUserNotification::dispatch($user);
+
+        // event(new Registered($user));
 
         Auth::login($user);
 
